@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OrderITModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="OrderITModelStoreContainer">
+          <EntitySet Name="Company" EntityType="OrderITModel.Store.Company" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Order" EntityType="OrderITModel.Store.Order" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderDetail" EntityType="OrderITModel.Store.OrderDetail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="OrderITModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductSupplier" EntityType="OrderITModel.Store.ProductSupplier" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Shirt" EntityType="OrderITModel.Store.Shirt" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Shoe" EntityType="OrderITModel.Store.Shoe" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Order_Company" Association="OrderITModel.Store.FK_Order_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Order" Association="OrderITModel.Store.FK_OrderDetail_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Product" Association="OrderITModel.Store.FK_OrderDetail_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSupplier_Company" Association="OrderITModel.Store.FK_ProductSupplier_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="ProductSupplier" EntitySet="ProductSupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSupplier_Product" Association="OrderITModel.Store.FK_ProductSupplier_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSupplier" EntitySet="ProductSupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shirt_Product" Association="OrderITModel.Store.FK_Shirt_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Shirt" EntitySet="Shirt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shoes_Product" Association="OrderITModel.Store.FK_Shoes_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Shoe" EntitySet="Shoe" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="BillingAddress" Type="varchar" MaxLength="20" />
+          <Property Name="BillingCity" Type="varchar" MaxLength="20" />
+          <Property Name="BillingZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="BillingCountry" Type="varchar" MaxLength="20" />
+          <Property Name="ShippingAddress" Type="varchar" MaxLength="20" />
+          <Property Name="ShippingCity" Type="varchar" MaxLength="20" />
+          <Property Name="ShippingZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="ShippingCountry" Type="varchar" MaxLength="20" />
+          <Property Name="WSUserName" Type="varchar" MaxLength="20" />
+          <Property Name="WSPassword" Type="varchar" MaxLength="20" />
+          <Property Name="WSEnabled" Type="bit" />
+          <Property Name="Type" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="IBAN" Type="char" MaxLength="16" />
+          <Property Name="PaymentDays" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="ShippingAddress" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="ShippingCity" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="ShippingZipCode" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="ShippingCountry" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="EstimatedShippingDate" Type="datetime" />
+          <Property Name="ActualShippingDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="Discount" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="Brand" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="AvailableItems" Type="int" Nullable="false" />
+          <Property Name="ReorderLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductSupplier">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="SupplierId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shirt">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="SleeveType" Type="int" Nullable="false" />
+          <Property Name="Color" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Size" Type="varchar" Nullable="false" MaxLength="4" />
+          <Property Name="Gender" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="Material" Type="varchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Shoe">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Color" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Size" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="Gender" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="Sport" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_Order_Company">
+          <End Role="Company" Type="OrderITModel.Store.Company" Multiplicity="1" />
+          <End Role="Order" Type="OrderITModel.Store.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Order">
+          <End Role="Order" Type="OrderITModel.Store.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderDetail" Type="OrderITModel.Store.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Product">
+          <End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+          <End Role="OrderDetail" Type="OrderITModel.Store.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSupplier_Company">
+          <End Role="Company" Type="OrderITModel.Store.Company" Multiplicity="1" />
+          <End Role="ProductSupplier" Type="OrderITModel.Store.ProductSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="ProductSupplier">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSupplier_Product">
+          <End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+          <End Role="ProductSupplier" Type="OrderITModel.Store.ProductSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductSupplier">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shirt_Product">
+          <End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+          <End Role="Shirt" Type="OrderITModel.Store.Shirt" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Shirt">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shoes_Product">
+          <End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+          <End Role="Shoe" Type="OrderITModel.Store.Shoe" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Shoe">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OrderITModel" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="OrderITEntitiesIA">
+          <EntitySet Name="Companies" EntityType="OrderITModel.Company" />
+          <EntitySet Name="Orders" EntityType="OrderITModel.Order" />
+          <EntitySet Name="OrderDetails" EntityType="OrderITModel.OrderDetail" />
+          <EntitySet Name="Products" EntityType="OrderITModel.Product" />
+          <AssociationSet Name="SupplierProduct" Association="OrderITModel.SupplierProduct">
+            <End Role="Supplier" EntitySet="Companies" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="OrderDetailProduct" Association="OrderITModel.OrderDetailProduct">
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="OrderOrderDetail" Association="OrderITModel.OrderOrderDetail">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerOrder" Association="OrderITModel.CustomerOrder">
+            <End Role="Customer" EntitySet="Companies" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Company" Abstract="true">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+          <Property Name="EstimatedShippingDate" Type="DateTime" />
+          <Property Name="ActualShippingDate" Type="DateTime" />
+          <Property Name="ShippingAddress" Type="OrderITModel.AddressInfo" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="OrderITModel.OrderOrderDetail" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="Customer" Relationship="OrderITModel.CustomerOrder" FromRole="Order" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Product" Relationship="OrderITModel.OrderDetailProduct" FromRole="OrderDetail" ToRole="Product" />
+          <NavigationProperty Name="Order" Relationship="OrderITModel.OrderOrderDetail" FromRole="OrderDetail" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="Brand" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="AvailableItems" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Public" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="ReorderLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Suppliers" Relationship="OrderITModel.SupplierProduct" FromRole="Product" ToRole="Supplier" />
+          <NavigationProperty Name="OrderDetails" Relationship="OrderITModel.OrderDetailProduct" FromRole="Product" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="Shirt" BaseType="OrderITModel.Product">
+          <Property Name="SleeveType" Type="Int32" Nullable="false" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Size" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="Material" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Shoe" BaseType="OrderITModel.Product">
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Size" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="Sport" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Customer" BaseType="OrderITModel.Company" >
+          <Property Type="String" Name="WSUserName" Nullable="true" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="WSPassword" Nullable="true" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="WSEnabled" Nullable="true" />
+          <Property Name="BillingAddress" Type="OrderITModel.AddressInfo" Nullable="false" />
+          <Property Name="ShippingAddress" Type="OrderITModel.AddressInfo" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier" BaseType="OrderITModel.Company" >
+          <Property Type="String" Name="IBAN" Nullable="true" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Type="Int16" Name="PaymentDays" Nullable="true" />
+          <NavigationProperty Name="Products" Relationship="OrderITModel.SupplierProduct" FromRole="Supplier" ToRole="Product" />
+        </EntityType>
+        <Association Name="SupplierProduct">
+          <End Type="OrderITModel.Supplier" Role="Supplier" Multiplicity="*" />
+          <End Type="OrderITModel.Product" Role="Product" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="AddressInfo">
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ZipCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </ComplexType>
+        <Association Name="OrderDetailProduct">
+          <End Type="OrderITModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <End Type="OrderITModel.Product" Role="Product" Multiplicity="1" />
+        </Association>
+        <Association Name="OrderOrderDetail">
+          <End Type="OrderITModel.Order" Role="Order" Multiplicity="1">
+            <OnDelete Action="Cascade"/>
+          </End>
+          <End Type="OrderITModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+        </Association>
+        <Association Name="CustomerOrder">
+          <End Type="OrderITModel.Customer" Role="Customer" Multiplicity="1" >
+</End>
+          <End Type="OrderITModel.Order" Role="Order" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OrderITModelStoreContainer" CdmEntityContainer="OrderITEntitiesIA">
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Company)">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Supplier)">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="PaymentDays" ColumnName="PaymentDays" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <Condition ColumnName="Type" Value="S" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Customer)">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="WSEnabled" ColumnName="WSEnabled" />
+                <ScalarProperty Name="WSPassword" ColumnName="WSPassword" />
+                <ScalarProperty Name="WSUserName" ColumnName="WSUserName" />
+                <Condition ColumnName="Type" Value="C" />
+                <ComplexProperty Name="BillingAddress">
+                  <ScalarProperty Name="Country" ColumnName="BillingCountry" />
+                  <ScalarProperty Name="ZipCode" ColumnName="BillingZipCode" />
+                  <ScalarProperty Name="City" ColumnName="BillingCity" />
+                  <ScalarProperty Name="Address" ColumnName="BillingAddress" />
+                </ComplexProperty>
+                <ComplexProperty Name="ShippingAddress">
+                  <ScalarProperty Name="Country" ColumnName="ShippingCountry" />
+                  <ScalarProperty Name="ZipCode" ColumnName="ShippingZipCode" />
+                  <ScalarProperty Name="City" ColumnName="ShippingCity" />
+                  <ScalarProperty Name="Address" ColumnName="ShippingAddress" />
+                </ComplexProperty>
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Order)">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ActualShippingDate" ColumnName="ActualShippingDate" />
+                <ScalarProperty Name="EstimatedShippingDate" ColumnName="EstimatedShippingDate" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ComplexProperty Name="ShippingAddress">
+                  <ScalarProperty Name="Country" ColumnName="ShippingCountry" />
+                  <ScalarProperty Name="ZipCode" ColumnName="ShippingZipCode" />
+                  <ScalarProperty Name="City" ColumnName="ShippingCity" />
+                  <ScalarProperty Name="Address" ColumnName="ShippingAddress" />
+                </ComplexProperty>
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="OrderITModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Shirt)">
+              <MappingFragment StoreEntitySet="Shirt">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="SleeveType" ColumnName="SleeveType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Product)">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+                <ScalarProperty Name="AvailableItems" ColumnName="AvailableItems" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Shoe)">
+              <MappingFragment StoreEntitySet="Shoe">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Sport" ColumnName="Sport" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SupplierProduct" TypeName="OrderITModel.SupplierProduct" StoreEntitySet="ProductSupplier">
+            <EndProperty Name="Supplier">
+              <ScalarProperty Name="CompanyId" ColumnName="SupplierId" />
+            </EndProperty>
+            <EndProperty Name="Product">
+              <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CustomerOrder" TypeName="OrderITModel.CustomerOrder" StoreEntitySet="Order">
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="CompanyId" ColumnName="CustomerId" />
+            </EndProperty>
+            <EndProperty Name="Order">
+              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="OrderOrderDetail" TypeName="OrderITModel.OrderOrderDetail" StoreEntitySet="OrderDetail">
+            <EndProperty Name="OrderDetail">
+              <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+            </EndProperty>
+            <EndProperty Name="Order">
+              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="OrderDetailProduct" TypeName="OrderITModel.OrderDetailProduct" StoreEntitySet="OrderDetail">
+            <EndProperty Name="Product">
+              <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            </EndProperty>
+            <EndProperty Name="OrderDetail">
+              <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model">
+        <EntityTypeShape EntityType="OrderITModel.Company" Width="1.5" PointX="0.875" PointY="4.5" Height="1.4033821614583326" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderITModel.Order" Width="1.5" PointX="3.125" PointY="1.25" Height="2.3648893229166661" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderITModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1.125" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderITModel.Product" Width="1.5" PointX="8.625" PointY="2.875" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderITModel.Shirt" Width="1.5" PointX="11.25" PointY="4.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderITModel.Shoe" Width="1.5" PointX="5.25" PointY="5" Height="1.7879850260416665" IsExpanded="true" />
+        <InheritanceConnector EntityType="OrderITModel.Shirt" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.125" PointY="5.4420475260416659" />
+          <ConnectorPoint PointX="11.25" PointY="5.4420475260416659" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="OrderITModel.Shoe" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.625" PointY="5.5045475260416659" />
+          <ConnectorPoint PointX="6.75" PointY="5.5045475260416659" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="OrderITModel.Customer" Width="1.5" PointX="0.875" PointY="0.5" Height="2.172587890625" />
+        <InheritanceConnector EntityType="OrderITModel.Customer" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.625" PointY="4.5" />
+          <ConnectorPoint PointX="1.625" PointY="2.4802864583333331" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="OrderITModel.Supplier" Width="1.5" PointX="3" PointY="4.625" Height="1.018779296875" />
+        <InheritanceConnector EntityType="OrderITModel.Supplier">
+          <ConnectorPoint PointX="2.375" PointY="5.487969688508838" />
+          <ConnectorPoint PointX="2.6875" PointY="5.487969688508838" />
+          <ConnectorPoint PointX="2.6875" PointY="6.1930649379825518" />
+          <ConnectorPoint PointX="3" PointY="6.1930649379825518" />
+        </InheritanceConnector>
+        <AssociationConnector Association="OrderITModel.SupplierProduct">
+          <ConnectorPoint PointX="4.5" PointY="4.78125" />
+          <ConnectorPoint PointX="8.625" PointY="4.78125" />
+        </AssociationConnector>
+        <AssociationConnector Association="OrderITModel.OrderDetailProduct">
+          <ConnectorPoint PointX="6.75" PointY="3.0862939453125" />
+          <ConnectorPoint PointX="8.625" PointY="3.0862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="OrderITModel.OrderOrderDetail">
+          <ConnectorPoint PointX="4.625" PointY="2.2737939453125" />
+          <ConnectorPoint PointX="5.25" PointY="2.2737939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="OrderITModel.CustomerOrder">
+          <ConnectorPoint PointX="2.375" PointY="1.8651432291666665" />
+          <ConnectorPoint PointX="3.125" PointY="1.8651432291666665" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schema.tempuri.org/Customer" elementFormDefault="qualified" targetNamespace="http://schema.tempuri.org/Customer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:32866/OrderITService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/OrderIT.Model" />
+  <xs:complexType name="Customer">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/OrderIT.Model" base="q1:Company">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BillingAddress" nillable="true" type="q1:AddressInfo" />
+          <xs:element minOccurs="0" name="ShippingAddress" nillable="true" type="q1:AddressInfo" />
+          <xs:element minOccurs="0" name="WSEnabled" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="WSPassword" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="WSUserName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Customer" nillable="true" type="tns:Customer" />
+</xs:schema>

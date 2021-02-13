@@ -1,0 +1,15 @@
+﻿<#@ template language="VB" debug="false" hostspecific="true"#>
+<#@ output extension=".html"#>
+
+<#
+Dim files = System.IO.Directory.GetFiles("D:\")         
+Dim file
+#>
+<html>                                                                   
+<head><title>Files</title></head>                                        
+<body>                                                                   
+<#For Each file In files#>                                               
+  <#=file#><br />                                                        
+<#Next#>                                                                 
+</body>
+</html>

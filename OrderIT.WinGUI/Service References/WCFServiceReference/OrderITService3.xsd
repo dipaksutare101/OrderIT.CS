@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schema.tempuri.org/Order" elementFormDefault="qualified" targetNamespace="http://schema.tempuri.org/Order" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:32866/OrderITService.svc?xsd=xsd3" namespace="http://schema.tempuri.org/Customer" />
+  <xs:import schemaLocation="http://localhost:32866/OrderITService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/OrderIT.Model" />
+  <xs:import schemaLocation="http://localhost:32866/OrderITService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Order">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActualShippingDate" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q1="http://schema.tempuri.org/Customer" minOccurs="0" name="Customer" nillable="true" type="q1:Customer" />
+      <xs:element minOccurs="0" name="CustomerId" type="xs:int" />
+      <xs:element minOccurs="0" name="EstimatedShippingDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderDate" type="xs:dateTime" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/OrderIT.Model" minOccurs="0" name="OrderDetails" nillable="true" type="q2:ArrayOfOrderDetail" />
+      <xs:element minOccurs="0" name="OrderId" type="xs:int" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/OrderIT.Model" minOccurs="0" name="ShippingAddress" nillable="true" type="q3:AddressInfo" />
+      <xs:element minOccurs="0" name="Version" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Order" nillable="true" type="tns:Order" />
+</xs:schema>

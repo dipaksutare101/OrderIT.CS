@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="OrderIT.STE.CustomerService.Service" CodeBehind="Service.svc.cs" %>

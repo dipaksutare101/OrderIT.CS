@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{14729104-99D3-4AEF-8953-926B0F8D4B03}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OrderIT.WinGUI</RootNamespace>
+    <AssemblyName>OrderIT.WinGUI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PlatformTarget>x86</PlatformTarget>
+    <StartupObject>OrderIT.WinGUI.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HibernatingRhinos.Profiler.Appender">
+      <HintPath>..\..\..\..\..\..\Download\EntityFramework.Profiler-Build-670\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppB.Designer.cs">
+      <DependentUpon>AppB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH12.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH12.Designer.cs">
+      <DependentUpon>CH12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH17.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH17.Designer.cs">
+      <DependentUpon>CH17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH4.Designer.cs">
+      <DependentUpon>CH4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH6_7_8Customers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH6_7_8Customers.Designer.cs">
+      <DependentUpon>CH6_7_8Customers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH9.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH9.Designer.cs">
+      <DependentUpon>CH9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH10-11.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH10-11.Designer.cs">
+      <DependentUpon>CH10-11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH6_7_8Suppliers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH6_7_8Suppliers.Designer.cs">
+      <DependentUpon>CH6_7_8Suppliers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH6_7_8Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH6_7_8Orders.Designer.cs">
+      <DependentUpon>CH6_7_8Orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH6_7_8OrdersIA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH6_7_8OrdersIA.Designer.cs">
+      <DependentUpon>CH6_7_8OrdersIA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH16CustomerDTO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH16CustomerDTO.Designer.cs">
+      <DependentUpon>CH16CustomerDTO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH16CustomerSTE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH16CustomerSTE.Designer.cs">
+      <DependentUpon>CH16CustomerSTE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomBindingList.cs" />
+    <Compile Include="EntriesComparer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EntriesComparer.Designer.cs">
+      <DependentUpon>EntriesComparer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH19.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH19.Designer.cs">
+      <DependentUpon>CH19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CH16Customer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CH16Customer.Designer.cs">
+      <DependentUpon>CH16Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectDumper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\WCFServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="TreeViewGenerator.cs" />
+    <EmbeddedResource Include="AppB.resx">
+      <DependentUpon>AppB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH12.resx">
+      <DependentUpon>CH12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH17.resx">
+      <DependentUpon>CH17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH4.resx">
+      <DependentUpon>CH4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH6_7_8Customers.resx">
+      <DependentUpon>CH6_7_8Customers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH9.resx">
+      <DependentUpon>CH9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH10-11.resx">
+      <DependentUpon>CH10-11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH6_7_8Suppliers.resx">
+      <DependentUpon>CH6_7_8Suppliers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH6_7_8Orders.resx">
+      <DependentUpon>CH6_7_8Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH6_7_8OrdersIA.resx">
+      <DependentUpon>CH6_7_8OrdersIA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH16CustomerDTO.resx">
+      <DependentUpon>CH16CustomerDTO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH16CustomerSTE.resx">
+      <DependentUpon>CH16CustomerSTE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntriesComparer.resx">
+      <DependentUpon>EntriesComparer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH19.resx">
+      <DependentUpon>CH19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CH16Customer.resx">
+      <DependentUpon>CH16Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\OrderIT.Model.Customer.datasource" />
+    <None Include="Properties\DataSources\OrderIT.Model.Order.datasource" />
+    <None Include="Properties\DataSources\OrderIT.Model.OrderDetail.datasource" />
+    <None Include="Properties\DataSources\OrderIT.Model.Product.datasource" />
+    <None Include="Properties\DataSources\OrderIT.Model.STE.Customer.datasource" />
+    <None Include="Properties\DataSources\OrderIT.Model.STE.Order.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\WCFServiceReference\OrderIT.WinGUI.WCFServiceReference.Customer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderIT.WinGUI.WCFServiceReference.CustomerDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderIT.WinGUI.WCFServiceReference.Order.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService.wsdl" />
+    <None Include="Service References\WCFServiceReference\OrderITService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\OrderITService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OrderIT.Model.STE\OrderIT.Model.STE.csproj">
+      <Project>{DC3CFE66-93B9-4CA5-A8E9-F20CD1059FA6}</Project>
+      <Name>OrderIT.Model.STE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OrderIT.ModelNoFK\OrderIT.ModelIA.csproj">
+      <Project>{92733ADC-6269-4932-8E01-9382745B0460}</Project>
+      <Name>OrderIT.ModelIA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OrderIT.Model\OrderIT.Model.csproj">
+      <Project>{A451731C-EC77-4EDC-AC88-7471A1BF4F9F}</Project>
+      <Name>OrderIT.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WCFServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFServiceReference\OrderITService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

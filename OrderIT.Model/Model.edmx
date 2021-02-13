@@ -1,0 +1,864 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+	<!-- EF Runtime content -->
+	<edmx:Runtime>
+		<!-- SSDL content -->
+		<edmx:StorageModels>
+			<Schema Namespace="OrderITModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+				<EntityContainer Name="OrderITModelStoreContainer">
+					<EntitySet Name="Company" EntityType="OrderITModel.Store.Company" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Order" EntityType="OrderITModel.Store.Order" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="OrderDetail" EntityType="OrderITModel.Store.OrderDetail" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Product" EntityType="OrderITModel.Store.Product" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="ProductSupplier" EntityType="OrderITModel.Store.ProductSupplier" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Shirt" EntityType="OrderITModel.Store.Shirt" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Shoe" EntityType="OrderITModel.Store.Shoe" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="GeometrySample" EntityType="OrderITModel.Store.GeometrySample">
+						<DefiningQuery>
+							SELECT Id, CONVERT([varbinary](MAX), SpatialData, 0) SpatialData FROM dbo.GeometrySample
+						</DefiningQuery>
+					</EntitySet>
+					<AssociationSet Name="FK_Order_Company" Association="OrderITModel.Store.FK_Order_Company">
+						<End Role="Company" EntitySet="Company" />
+						<End Role="Order" EntitySet="Order" />
+					</AssociationSet>
+					<AssociationSet Name="FK_OrderDetail_Order" Association="OrderITModel.Store.FK_OrderDetail_Order">
+						<End Role="Order" EntitySet="Order" />
+						<End Role="OrderDetail" EntitySet="OrderDetail" />
+					</AssociationSet>
+					<AssociationSet Name="FK_OrderDetail_Product" Association="OrderITModel.Store.FK_OrderDetail_Product">
+						<End Role="Product" EntitySet="Product" />
+						<End Role="OrderDetail" EntitySet="OrderDetail" />
+					</AssociationSet>
+					<AssociationSet Name="FK_ProductSupplier_Company" Association="OrderITModel.Store.FK_ProductSupplier_Company">
+						<End Role="Company" EntitySet="Company" />
+						<End Role="ProductSupplier" EntitySet="ProductSupplier" />
+					</AssociationSet>
+					<AssociationSet Name="FK_ProductSupplier_Product" Association="OrderITModel.Store.FK_ProductSupplier_Product">
+						<End Role="Product" EntitySet="Product" />
+						<End Role="ProductSupplier" EntitySet="ProductSupplier" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Shirt_Product" Association="OrderITModel.Store.FK_Shirt_Product">
+						<End Role="Product" EntitySet="Product" />
+						<End Role="Shirt" EntitySet="Shirt" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Shoes_Product" Association="OrderITModel.Store.FK_Shoes_Product">
+						<End Role="Product" EntitySet="Product" />
+						<End Role="Shoe" EntitySet="Shoe" />
+					</AssociationSet>
+				</EntityContainer>
+				<EntityType Name="Company">
+					<Key>
+						<PropertyRef Name="CompanyId" />
+					</Key>
+					<Property Name="CompanyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+					<Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+					<Property Name="BillingAddress" Type="varchar" MaxLength="20" />
+					<Property Name="BillingCity" Type="varchar" MaxLength="20" />
+					<Property Name="BillingZipCode" Type="varchar" MaxLength="10" />
+					<Property Name="BillingCountry" Type="varchar" MaxLength="20" />
+					<Property Name="ShippingAddress" Type="varchar" MaxLength="20" />
+					<Property Name="ShippingCity" Type="varchar" MaxLength="20" />
+					<Property Name="ShippingZipCode" Type="varchar" MaxLength="10" />
+					<Property Name="ShippingCountry" Type="varchar" MaxLength="20" />
+					<Property Name="WSUserName" Type="varchar" MaxLength="20" />
+					<Property Name="WSPassword" Type="varchar" MaxLength="20" />
+					<Property Name="WSEnabled" Type="bit" />
+					<Property Name="Type" Type="char" Nullable="false" MaxLength="1" />
+					<Property Name="IBAN" Type="char" MaxLength="27" />
+					<Property Name="PaymentDays" Type="smallint" />
+					<Property Name="Version" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+				</EntityType>
+				<EntityType Name="Order">
+					<Key>
+						<PropertyRef Name="OrderId" />
+					</Key>
+					<Property Name="OrderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+					<Property Name="OrderDate" Type="date" Nullable="false" />
+					<Property Name="CustomerId" Type="int" Nullable="false" />
+					<Property Name="ShippingAddress" Type="varchar" Nullable="false" MaxLength="20" />
+					<Property Name="ShippingCity" Type="varchar" Nullable="false" MaxLength="20" />
+					<Property Name="ShippingZipCode" Type="varchar" Nullable="false" MaxLength="10" />
+					<Property Name="ShippingCountry" Type="varchar" Nullable="false" MaxLength="20" />
+					<Property Name="EstimatedShippingDate" Type="datetime" />
+					<Property Name="ActualShippingDate" Type="datetime" />
+					<Property Name="Version" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+				</EntityType>
+				<EntityType Name="OrderDetail">
+					<Key>
+						<PropertyRef Name="OrderDetailId" />
+					</Key>
+					<Property Name="OrderDetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+					<Property Name="OrderId" Type="int" Nullable="false" />
+					<Property Name="ProductId" Type="int" Nullable="false" />
+					<Property Name="Quantity" Type="int" Nullable="false" />
+					<Property Name="UnitPrice" Type="money" Nullable="false" />
+					<Property Name="Discount" Type="money" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Product">
+					<Key>
+						<PropertyRef Name="ProductId" />
+					</Key>
+					<Property Name="ProductId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+					<Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+					<Property Name="Description" Type="varchar" Nullable="false" MaxLength="30" />
+					<Property Name="Brand" Type="varchar" Nullable="false" MaxLength="15" />
+					<Property Name="Price" Type="money" Nullable="false" />
+					<Property Name="AvailableItems" Type="int" Nullable="false" />
+					<Property Name="ReorderLevel" Type="int" Nullable="false" />
+					<Property Name="Version" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+				</EntityType>
+				<EntityType Name="ProductSupplier">
+					<Key>
+						<PropertyRef Name="ProductId" />
+						<PropertyRef Name="SupplierId" />
+					</Key>
+					<Property Name="ProductId" Type="int" Nullable="false" />
+					<Property Name="SupplierId" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Shirt">
+					<Key>
+						<PropertyRef Name="ProductId" />
+					</Key>
+					<Property Name="ProductId" Type="int" Nullable="false" />
+					<Property Name="SleeveType" Type="int" Nullable="false" />
+					<Property Name="Color" Type="varchar" Nullable="false" MaxLength="10" />
+					<Property Name="Size" Type="varchar" Nullable="false" MaxLength="4" />
+					<Property Name="Gender" Type="char" Nullable="false" MaxLength="1" />
+					<Property Name="Material" Type="varchar" Nullable="false" MaxLength="10" />
+				</EntityType>
+				<EntityType Name="Shoe">
+					<Key>
+						<PropertyRef Name="ProductId" />
+					</Key>
+					<Property Name="ProductId" Type="int" Nullable="false" />
+					<Property Name="Color" Type="varchar" Nullable="false" MaxLength="10" />
+					<Property Name="Size" Type="varchar" Nullable="false" MaxLength="5" />
+					<Property Name="Gender" Type="char" Nullable="false" MaxLength="2" />
+					<Property Name="Sport" Type="varchar" Nullable="false" MaxLength="20" />
+				</EntityType>
+				<EntityType Name="GeometrySample">
+					<Key>
+						<PropertyRef Name="Id" />
+					</Key>
+					<Property Name="Id" Type="int" Nullable="false" />
+					<Property Name="SpatialData" Type="varbinary" Nullable="false" />
+				</EntityType>
+				<Association Name="FK_Order_Company">
+					<End Role="Company" Type="OrderITModel.Store.Company" Multiplicity="1" />
+					<End Role="Order" Type="OrderITModel.Store.Order" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Company">
+							<PropertyRef Name="CompanyId" />
+						</Principal>
+						<Dependent Role="Order">
+							<PropertyRef Name="CustomerId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_OrderDetail_Order">
+					<End Role="Order" Type="OrderITModel.Store.Order" Multiplicity="1">
+						<OnDelete Action="Cascade" />
+					</End>
+					<End Role="OrderDetail" Type="OrderITModel.Store.OrderDetail" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Order">
+							<PropertyRef Name="OrderId" />
+						</Principal>
+						<Dependent Role="OrderDetail">
+							<PropertyRef Name="OrderId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_OrderDetail_Product">
+					<End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+					<End Role="OrderDetail" Type="OrderITModel.Store.OrderDetail" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Product">
+							<PropertyRef Name="ProductId" />
+						</Principal>
+						<Dependent Role="OrderDetail">
+							<PropertyRef Name="ProductId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_ProductSupplier_Company">
+					<End Role="Company" Type="OrderITModel.Store.Company" Multiplicity="1" />
+					<End Role="ProductSupplier" Type="OrderITModel.Store.ProductSupplier" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Company">
+							<PropertyRef Name="CompanyId" />
+						</Principal>
+						<Dependent Role="ProductSupplier">
+							<PropertyRef Name="SupplierId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_ProductSupplier_Product">
+					<End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+					<End Role="ProductSupplier" Type="OrderITModel.Store.ProductSupplier" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Product">
+							<PropertyRef Name="ProductId" />
+						</Principal>
+						<Dependent Role="ProductSupplier">
+							<PropertyRef Name="ProductId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Shirt_Product">
+					<End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+					<End Role="Shirt" Type="OrderITModel.Store.Shirt" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Product">
+							<PropertyRef Name="ProductId" />
+						</Principal>
+						<Dependent Role="Shirt">
+							<PropertyRef Name="ProductId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Shoes_Product">
+					<End Role="Product" Type="OrderITModel.Store.Product" Multiplicity="1" />
+					<End Role="Shoe" Type="OrderITModel.Store.Shoe" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Product">
+							<PropertyRef Name="ProductId" />
+						</Principal>
+						<Dependent Role="Shoe">
+							<PropertyRef Name="ProductId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Function Name="InsertCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="Name" Type="varchar" Mode="In" />
+					<Parameter Name="BillingAddress" Type="varchar" Mode="In" />
+					<Parameter Name="BillingCity" Type="varchar" Mode="In" />
+					<Parameter Name="BillingZipCode" Type="varchar" Mode="In" />
+					<Parameter Name="BillingCountry" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingAddress" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCity" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingZipCode" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCountry" Type="varchar" Mode="In" />
+					<Parameter Name="WSUserName" Type="varchar" Mode="In" />
+					<Parameter Name="WSPassword" Type="varchar" Mode="In" />
+					<Parameter Name="WSEnabled" Type="bit" Mode="In" />
+				</Function>
+				<Function Name="UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="CompanyId" Type="int" Mode="In" />
+					<Parameter Name="Name" Type="varchar" Mode="In" />
+					<Parameter Name="BillingAddress" Type="varchar" Mode="In" />
+					<Parameter Name="BillingCity" Type="varchar" Mode="In" />
+					<Parameter Name="BillingZipCode" Type="varchar" Mode="In" />
+					<Parameter Name="BillingCountry" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingAddress" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCity" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingZipCode" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCountry" Type="varchar" Mode="In" />
+					<Parameter Name="WSUserName" Type="varchar" Mode="In" />
+					<Parameter Name="WSPassword" Type="varchar" Mode="In" />
+					<Parameter Name="WSEnabled" Type="bit" Mode="In" />
+				</Function>
+				<Function Name="DeleteCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="CompanyId" Type="int" Mode="In" />
+				</Function>
+
+				<Function Name="InsertSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="Name" Type="varchar" Mode="In" />
+					<Parameter Name="IBAN" Type="char" Mode="In" />
+					<Parameter Name="PaymentDays" Type="smallint" Mode="In" />
+				</Function>
+				<Function Name="UpdateSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="CompanyId" Type="int" Mode="In" />
+					<Parameter Name="Name" Type="varchar" Mode="In" />
+					<Parameter Name="IBAN" Type="char" Mode="In" />
+					<Parameter Name="PaymentDays" Type="smallint" Mode="In" />
+					<Parameter Name="Version" Type="timestamp" Mode="In" />
+				</Function>
+				<Function Name="DeleteSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="CompanyId" Type="int" Mode="In" />
+				</Function>
+
+				<Function Name="InsertOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="OrderDate" Type="datetime" Mode="In" />
+					<Parameter Name="CustomerId" Type="int" Mode="In" />
+					<Parameter Name="ShippingAddress" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCity" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingZipCode" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCountry" Type="varchar" Mode="In" />
+					<Parameter Name="EstimatedShippingDate" Type="datetime" Mode="In" />
+					<Parameter Name="ActualShippingDate" Type="datetime" Mode="In" />
+				</Function>
+				<Function Name="UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="OrderDate" Type="datetime" Mode="In" />
+					<Parameter Name="CustomerId" Type="int" Mode="In" />
+					<Parameter Name="ShippingAddress" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCity" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingZipCode" Type="varchar" Mode="In" />
+					<Parameter Name="ShippingCountry" Type="varchar" Mode="In" />
+					<Parameter Name="EstimatedShippingDate" Type="datetime" Mode="In" />
+					<Parameter Name="ActualShippingDate" Type="datetime" Mode="In" />
+					<Parameter Name="OrderId" Type="int" Mode="In" />
+					<Parameter Name="Version" Type="timestamp" Mode="In" />
+				</Function>
+				<Function Name="DeleteOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="OrderId" Type="int" Mode="In" />
+				</Function>
+
+				<Function Name="InsertOrderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="OrderId" Type="int" Mode="In" />
+					<Parameter Name="ProductId" Type="int" Mode="In" />
+					<Parameter Name="Quantity" Type="int" Mode="In" />
+					<Parameter Name="UnitPrice" Type="money" Mode="In" />
+					<Parameter Name="Discount" Type="money" Mode="In" />
+				</Function>
+				<Function Name="UpdateOrderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="OrderId" Type="int" Mode="In" />
+					<Parameter Name="ProductId" Type="int" Mode="In" />
+					<Parameter Name="Quantity" Type="int" Mode="In" />
+					<Parameter Name="UnitPrice" Type="money" Mode="In" />
+					<Parameter Name="Discount" Type="money" Mode="In" />
+					<Parameter Name="DetailId" Type="int" Mode="In" />
+				</Function>
+				<Function Name="DeleteOrderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="DetailId" Type="int" Mode="In" />
+				</Function>
+
+				<Function Name="GetCompanies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+				<Function Name="GetCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+				<Function Name="GetOrderDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="orderid" Type="int" Mode="In" />
+				</Function>
+				<Function Name="GetOrdersWithComplexProperties" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+				<Function Name="GetProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+				<Function Name="GetPagedOrderDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="pageIndex" Type="int" Mode="In" />
+					<Parameter Name="rowsPerPage" Type="int" Mode="In" />
+					<Parameter Name="count" Type="int" Mode="InOut" />
+				</Function>
+				<Function Name="GetTopOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+				<Function Name="GetTotalAmount" ReturnType="money" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter Name="unitprice" Type="money" Mode="In" />
+					<Parameter Name="quantity" Type="int" Mode="In" />
+					<Parameter Name="discount" Type="money" Mode="In" />
+				</Function>
+				<Function Name="GetTotalOrdersAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+				<Function Name="SearchFullText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+					<Parameter MaxLength="50" Name="Text" Type="varchar" Mode="In" />
+				</Function>
+			</Schema>
+		</edmx:StorageModels>
+		<!-- CSDL content -->
+		<edmx:ConceptualModels>
+			<Schema Namespace="OrderITModel" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:val="http://val" xmlns:efex="http://EFEX" xmlns:customAnnotations="http://CustomAnnotations">
+				<EntityContainer Name="OrderITEntities" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" b:LazyLoadingEnabled="true" xmlns:b="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+					<EntitySet Name="Companies" EntityType="OrderITModel.Company" />
+					<EntitySet Name="Orders" EntityType="OrderITModel.Order" />
+					<EntitySet Name="OrderDetails" EntityType="OrderITModel.OrderDetail" />
+					<EntitySet Name="Products" EntityType="OrderITModel.Product" />
+					<AssociationSet Name="SupplierProduct" Association="OrderITModel.SupplierProduct">
+						<End Role="Supplier" EntitySet="Companies" />
+						<End Role="Product" EntitySet="Products" />
+					</AssociationSet>
+					<AssociationSet Name="OrderDetailProduct" Association="OrderITModel.OrderDetailProduct">
+						<End Role="OrderDetail" EntitySet="OrderDetails" />
+						<End Role="Product" EntitySet="Products" />
+					</AssociationSet>
+					<AssociationSet Name="OrderOrderDetail" Association="OrderITModel.OrderOrderDetail">
+						<End Role="Order" EntitySet="Orders" />
+						<End Role="OrderDetail" EntitySet="OrderDetails" />
+					</AssociationSet>
+					<AssociationSet Name="CustomerOrder" Association="OrderITModel.CustomerOrder">
+						<End Role="Customer" EntitySet="Companies" />
+						<End Role="Order" EntitySet="Orders" />
+					</AssociationSet>
+					<FunctionImport Name="GetOrderDetails" EntitySet="OrderDetails" ReturnType="Collection(OrderITModel.OrderDetail)">
+						<Parameter Name="orderid" Mode="In" Type="Int32" />
+					</FunctionImport>
+					<FunctionImport Name="GetTopOrders" />
+					<FunctionImport Name="GetTotalOrdersAmount" ReturnType="Collection(Decimal)" />
+					<FunctionImport Name="GetCompanies" ReturnType="Collection(OrderITModel.Company)" EntitySet="Companies" />
+					<FunctionImport Name="GetPagedOrderDetails" ReturnType="Collection(OrderITModel.OrderDetail)" EntitySet="OrderDetails">
+						<Parameter Name="pageIndex" Type="Int32" Mode="In" />
+						<Parameter Name="rowsPerPage" Type="Int32" Mode="In" />
+						<Parameter Name="count" Type="Int32" Mode="InOut" />
+					</FunctionImport>
+					<EntitySet Name="GeometrySamples" EntityType="OrderITModel.GeometrySample" />
+					<FunctionImport Name="GetOrdersWithComplexProperties" ReturnType="Collection(Binary)" />
+          <FunctionImport Name="GetProducts" ReturnType="Collection(OrderITModel.Product)" EntitySet="Products" />
+				</EntityContainer>
+				<Function Name="GetUDFTotalAmount" ReturnType="Decimal">
+					<Parameter Name="UnitPrice" Type="Decimal" />
+					<DefiningExpression>
+						UnitPrice
+					</DefiningExpression>
+				</Function>
+				<Function Name="GetUDFTotalAmount" ReturnType="Decimal">
+					<Parameter Name="UnitPrice" Type="Decimal" />
+					<Parameter Name="Quantity" Type="Int32" />
+					<Parameter Name="Discount" Type="Decimal" />
+					<DefiningExpression>
+						(UnitPrice - Discount) * Quantity
+					</DefiningExpression>
+				</Function>
+				<Function Name="GetUDFTotalAmountWithObjectParameter" ReturnType="Decimal">
+					<Parameter Name="detail" Type="OrderITModel.OrderDetail" />
+					<DefiningExpression>
+						(detail.UnitPrice - detail.Discount) * detail.Quantity
+					</DefiningExpression>
+				</Function>
+				<Function Name="GetUDFAddresses">
+					<ReturnType>
+						<RowType>
+							<Property Name="Name" Type="String" />
+							<Property Name="BillingAddress" Type="String" />
+							<Property Name="BillingCity" Type="String" />
+							<Property Name="ShippingAddress" Type="String" />
+							<Property Name="ShippingCity" Type="String" />
+						</RowType>
+					</ReturnType>
+					<Parameter Name="detail" Type="OrderITModel.Customer" />
+					<DefiningExpression>
+						ROW(detail.Name, detail.BillingAddress.Address AS BillingAddress, detail.BillingAddress.City AS BillingCity, detail.ShippingAddress.Address AS ShippingAddress, detail.ShippingAddress.City AS ShippingCity)
+					</DefiningExpression>
+				</Function>
+				<Function Name="GetUDFTypedAddresses">
+					<ReturnType Type="OrderITModel.CustomerProjection" />
+					<Parameter Name="customer" Type="OrderITModel.Customer" />
+					<DefiningExpression>
+						OrderITModel.CustomerProjection(customer.Name, customer.BillingAddress.Address AS BillingAddress, customer.BillingAddress.City AS BillingCity, customer.ShippingAddress.Address AS ShippingAddress, customer.ShippingAddress.City AS ShippingCity) AS c
+					</DefiningExpression>
+				</Function>
+				<Function Name="GetUDFDetailsWithNoDiscount_Scalar" ReturnType="Collection(Int32)">
+					<Parameter Name="o" Type="OrderITModel.Order" />
+					<DefiningExpression>
+						SELECT VALUE d.OrderDetailId FROM o.OrderDetails AS d WHERE d.discount == 0
+					</DefiningExpression>
+				</Function>
+				<Function Name="GetUDFDetailsWithNoDiscount_Record">
+					<ReturnType>
+						<CollectionType>
+							<RowType>
+								<Property Name="OrderId" Type="Int32"/>
+								<Property Name="UnitPrice" Type="Decimal"/>
+								<Property Name="Quantity" Type="Int32"/>
+							</RowType>
+						</CollectionType>
+					</ReturnType>
+					<Parameter Name="o" Type="OrderITModel.Order" />
+					<DefiningExpression>
+						SELECT d.OrderDetailId, d.UnitPrice, d.Quantity FROM o.OrderDetails AS d WHERE d.discount == 0
+					</DefiningExpression>
+				</Function>
+				<Function Name="GetUDFDetailsWithNoDiscount_Object" ReturnType="Collection(OrderITModel.OrderDetail)">
+					<Parameter Name="o" Type="OrderITModel.Order" />
+					<DefiningExpression>
+						SELECT VALUE d FROM o.OrderDetails AS d WHERE d.discount == 0
+					</DefiningExpression>
+				</Function>
+
+				<EntityType Name="Company" Abstract="true">
+					<Key>
+						<PropertyRef Name="CompanyId" />
+					</Key>
+					<Property Name="CompanyId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+						<efex:InsertWhen>0</efex:InsertWhen>
+						<b:InsertWhen xmlns:b="http://efex">0</b:InsertWhen>
+					</Property>
+					<Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false">
+						<customAnnotations:DisplayName>
+							<customAnnotations:unnamedParam>Company name</customAnnotations:unnamedParam>
+						</customAnnotations:DisplayName>
+						<customAnnotations:Required>
+							<customAnnotations:ErrorMessage>Company name is required</customAnnotations:ErrorMessage>
+						</customAnnotations:Required>
+						<customAnnotations:DataType>
+							<customAnnotations:unnamedParam>MultilineText</customAnnotations:unnamedParam>
+						</customAnnotations:DataType>
+						<customAnnotations:RegularExpression>
+							<customAnnotations:unnamedParam>[\\w\\s.,]{2,}</customAnnotations:unnamedParam>
+							<customAnnotations:ErrorMessage>At least 2 chars.</customAnnotations:ErrorMessage>
+						</customAnnotations:RegularExpression>
+					</Property>
+					<Property Type="Binary" Name="Version" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" ConcurrencyMode="Fixed" />
+				</EntityType>
+				<EntityType Name="Order">
+					<Key>
+						<PropertyRef Name="OrderId" />
+					</Key>
+					<Property Name="OrderId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" >
+						<a:InsertWhen xmlns:a="http://efex">0</a:InsertWhen>
+					</Property>
+					<Property Name="OrderDate" Type="DateTime" Nullable="false" />
+					<Property Name="EstimatedShippingDate" Type="DateTime" />
+					<Property Name="ActualShippingDate" Type="DateTime" />
+					<Property Name="ShippingAddress" Type="OrderITModel.AddressInfo" Nullable="false" />
+					<NavigationProperty Name="OrderDetails" Relationship="OrderITModel.OrderOrderDetail" FromRole="Order" ToRole="OrderDetail" />
+					<NavigationProperty Name="Customer" Relationship="OrderITModel.CustomerOrder" FromRole="Order" ToRole="Customer" />
+					<Property Type="Int32" Name="CustomerId" Nullable="false" store:StoreGeneratedPattern="Identity" />
+					<Property Type="Binary" Name="Version" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" ConcurrencyMode="Fixed" />
+					<efex:Auditable>true</efex:Auditable>
+				</EntityType>
+				<EntityType Name="OrderDetail">
+					<Key>
+						<PropertyRef Name="OrderDetailId" />
+					</Key>
+					<Property Name="OrderDetailId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" />
+					<Property Name="Quantity" Type="Int32" Nullable="false" />
+					<Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+					<Property Name="Discount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+					<NavigationProperty Name="Product" Relationship="OrderITModel.OrderDetailProduct" FromRole="OrderDetail" ToRole="Product" />
+					<Property Type="Int32" Name="ProductId" Nullable="false" store:StoreGeneratedPattern="Identity" />
+					<NavigationProperty Name="Order" Relationship="OrderITModel.OrderOrderDetail" FromRole="OrderDetail" ToRole="Order" />
+					<Property Type="Int32" Name="OrderId" store:StoreGeneratedPattern="Identity" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Product">
+					<Key>
+						<PropertyRef Name="ProductId" />
+					</Key>
+					<Property Name="ProductId" Type="Int32" Nullable="false" store:StoreGeneratedPattern="Identity" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" >
+						<b:InsertWhen xmlns:b="http://EFEX">0</b:InsertWhen>
+					</Property>
+					<Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+					<Property Name="Description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+					<Property Name="Brand" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+					<Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+					<Property Name="AvailableItems" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Public" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="ReorderLevel" Type="Int32" Nullable="false" />
+					<NavigationProperty Name="Suppliers" Relationship="OrderITModel.SupplierProduct" FromRole="Product" ToRole="Supplier" />
+					<Property Type="Binary" Name="Version" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" ConcurrencyMode="Fixed" />
+				</EntityType>
+				<EntityType Name="Shirt" BaseType="OrderITModel.Product">
+					<Property Name="SleeveType" Type="Int32" Nullable="false" />
+					<Property Name="Color" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+					<Property Name="Size" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
+					<Property Name="Gender" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+					<Property Name="Material" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+				</EntityType>
+				<EntityType Name="Shoe" BaseType="OrderITModel.Product">
+					<Property Name="Color" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+					<Property Name="Size" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+					<Property Name="Gender" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+					<Property Name="Sport" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+				</EntityType>
+				<EntityType Name="Customer" BaseType="OrderITModel.Company">
+					<Property Type="String" Name="WSUserName" Nullable="true" MaxLength="20" FixedLength="false" Unicode="false" ConcurrencyMode="None" />
+					<Property Type="String" Name="WSPassword" Nullable="true" MaxLength="20" FixedLength="false" Unicode="false" />
+					<Property Type="Boolean" Name="WSEnabled" Nullable="true" />
+					<Property Name="BillingAddress" Type="OrderITModel.AddressInfo" Nullable="false" />
+					<Property Name="ShippingAddress" Type="OrderITModel.AddressInfo" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Supplier" BaseType="OrderITModel.Company">
+					<Property Type="String" Name="IBAN" Nullable="true" MaxLength="16" FixedLength="true" Unicode="false">
+						<val:regex>[a-zA-Z]{2}\d{2}[ ][a-zA-Z]\d{3}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{3}|[a-zA-Z]{2}\d{2}[a-zA-Z]\d{22}</val:regex>
+					</Property>
+					<Property Type="Int16" Name="PaymentDays" Nullable="true" />
+					<NavigationProperty Name="Products" Relationship="OrderITModel.SupplierProduct" FromRole="Supplier" ToRole="Product" />
+				</EntityType>
+				<Association Name="SupplierProduct">
+					<End Type="OrderITModel.Supplier" Role="Supplier" Multiplicity="*" />
+					<End Type="OrderITModel.Product" Role="Product" Multiplicity="*" />
+				</Association>
+				<ComplexType Name="AddressInfo">
+					<Property Type="String" Name="Address" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+					<Property Type="String" Name="City" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+					<Property Type="String" Name="ZipCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+					<Property Type="String" Name="Country" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+				</ComplexType>
+				<Association Name="OrderDetailProduct">
+					<End Type="OrderITModel.OrderDetail" Role="OrderDetail" Multiplicity="*">
+					</End>
+					<End Type="OrderITModel.Product" Role="Product" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Product">
+							<PropertyRef Name="ProductId" />
+						</Principal>
+						<Dependent Role="OrderDetail">
+							<PropertyRef Name="ProductId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="OrderOrderDetail">
+					<End Type="OrderITModel.Order" Role="Order" Multiplicity="1">
+						<OnDelete Action="Cascade" />
+					</End>
+					<End Type="OrderITModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Order">
+							<PropertyRef Name="OrderId" />
+						</Principal>
+						<Dependent Role="OrderDetail">
+							<PropertyRef Name="OrderId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="CustomerOrder">
+					<End Type="OrderITModel.Customer" Role="Customer" Multiplicity="1" >
+						<OnDelete Action="Cascade" />
+					</End>
+					<End Type="OrderITModel.Order" Role="Order" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Customer">
+							<PropertyRef Name="CompanyId" />
+						</Principal>
+						<Dependent Role="Order">
+							<PropertyRef Name="CustomerId" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<ComplexType Name="TopOrder">
+					<Property Type="String" Name="Name" Nullable="false" MaxLength="30" />
+					<Property Type="Int32" Name="OrderId" Nullable="false" />
+					<Property Type="DateTime" Name="OrderDate" Nullable="false" />
+					<Property Type="Decimal" Name="total" Nullable="true" Precision="19" />
+				</ComplexType>
+				<ComplexType Name="CustomerProjection">
+					<Property Type="String" Name="Name" Nullable="false" />
+					<Property Type="String" Name="BillingAddress" Nullable="false" />
+					<Property Type="String" Name="BillingCity" Nullable="false" />
+					<Property Type="String" Name="ShippingAddress" Nullable="false" />
+					<Property Type="String" Name="ShippingCity" Nullable="false" />
+				</ComplexType>
+				<EntityType Name="GeometrySample">
+					<Key>
+						<PropertyRef Name="Id" />
+					</Key>
+					<Property Type="Int32" Name="Id" Nullable="false" />
+					<Property Type="Binary" Name="SpatialData" Nullable="false" />
+				</EntityType>
+				<ComplexType Name="GetOrdersWithComplexProperties_Result">
+					<Property Type="Int32" Name="OrderId" Nullable="false" />
+					<Property Type="DateTime" Name="OrderDate" Nullable="false" />
+					<Property Type="Int32" Name="CustomerId" Nullable="false" />
+					<Property Type="String" Name="ShippingAddress_Address" Nullable="false" MaxLength="20" />
+					<Property Type="String" Name="ShippingAddress_City" Nullable="false" MaxLength="20" />
+					<Property Type="String" Name="ShippingAddress_ZipCode" Nullable="false" MaxLength="10" />
+					<Property Type="String" Name="ShippingAddress_Country" Nullable="false" MaxLength="20" />
+					<Property Type="DateTime" Name="EstimatedShippingDate" Nullable="true" Precision="23" />
+					<Property Type="DateTime" Name="ActualShippingDate" Nullable="true" Precision="23" />
+					<Property Type="Binary" Name="Version" Nullable="false" MaxLength="8" />
+				</ComplexType>
+			</Schema>
+		</edmx:ConceptualModels>
+		<!-- C-S mapping content -->
+		<edmx:Mappings>
+			<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+				<EntityContainerMapping StorageEntityContainer="OrderITModelStoreContainer" CdmEntityContainer="OrderITEntities">
+					<EntitySetMapping Name="Companies">
+						<EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Company)">
+							<MappingFragment StoreEntitySet="Company">
+								<ScalarProperty Name="Version" ColumnName="Version" />
+								<ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Supplier)">
+							<MappingFragment StoreEntitySet="Company">
+								<ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+								<ScalarProperty Name="PaymentDays" ColumnName="PaymentDays" />
+								<ScalarProperty Name="IBAN" ColumnName="IBAN" />
+								<Condition ColumnName="Type" Value="S" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Customer)">
+							<MappingFragment StoreEntitySet="Company">
+								<ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+								<ScalarProperty Name="WSEnabled" ColumnName="WSEnabled" />
+								<ScalarProperty Name="WSPassword" ColumnName="WSPassword" />
+								<ScalarProperty Name="WSUserName" ColumnName="WSUserName" />
+								<Condition ColumnName="Type" Value="C" />
+								<ComplexProperty Name="BillingAddress">
+									<ScalarProperty Name="Country" ColumnName="BillingCountry" />
+									<ScalarProperty Name="ZipCode" ColumnName="BillingZipCode" />
+									<ScalarProperty Name="City" ColumnName="BillingCity" />
+									<ScalarProperty Name="Address" ColumnName="BillingAddress" />
+								</ComplexProperty>
+								<ComplexProperty Name="ShippingAddress">
+									<ScalarProperty Name="Country" ColumnName="ShippingCountry" />
+									<ScalarProperty Name="ZipCode" ColumnName="ShippingZipCode" />
+									<ScalarProperty Name="City" ColumnName="ShippingCity" />
+									<ScalarProperty Name="Address" ColumnName="ShippingAddress" />
+								</ComplexProperty>
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Orders">
+						<EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Order)">
+							<MappingFragment StoreEntitySet="Order">
+								<ScalarProperty Name="Version" ColumnName="Version" />
+								<ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+								<ScalarProperty Name="OrderId" ColumnName="OrderId" />
+								<ScalarProperty Name="ActualShippingDate" ColumnName="ActualShippingDate" />
+								<ScalarProperty Name="EstimatedShippingDate" ColumnName="EstimatedShippingDate" />
+								<ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+								<ComplexProperty Name="ShippingAddress">
+									<ScalarProperty Name="Country" ColumnName="ShippingCountry" />
+									<ScalarProperty Name="ZipCode" ColumnName="ShippingZipCode" />
+									<ScalarProperty Name="City" ColumnName="ShippingCity" />
+									<ScalarProperty Name="Address" ColumnName="ShippingAddress" />
+								</ComplexProperty>
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="OrderDetails">
+						<EntityTypeMapping TypeName="OrderITModel.OrderDetail">
+							<MappingFragment StoreEntitySet="OrderDetail">
+								<ScalarProperty Name="OrderId" ColumnName="OrderId" />
+								<ScalarProperty Name="ProductId" ColumnName="ProductId" />
+								<ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+								<ScalarProperty Name="Quantity" ColumnName="Quantity" />
+								<ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+								<ScalarProperty Name="Discount" ColumnName="Discount" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Products">
+						<EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Shirt)">
+							<MappingFragment StoreEntitySet="Shirt">
+								<ScalarProperty Name="ProductId" ColumnName="ProductId" />
+								<ScalarProperty Name="Material" ColumnName="Material" />
+								<ScalarProperty Name="Gender" ColumnName="Gender" />
+								<ScalarProperty Name="Size" ColumnName="Size" />
+								<ScalarProperty Name="Color" ColumnName="Color" />
+								<ScalarProperty Name="SleeveType" ColumnName="SleeveType" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Product)">
+							<MappingFragment StoreEntitySet="Product">
+								<ScalarProperty Name="Version" ColumnName="Version" />
+								<ScalarProperty Name="ProductId" ColumnName="ProductId" />
+								<ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+								<ScalarProperty Name="AvailableItems" ColumnName="AvailableItems" />
+								<ScalarProperty Name="Price" ColumnName="Price" />
+								<ScalarProperty Name="Brand" ColumnName="Brand" />
+								<ScalarProperty Name="Description" ColumnName="Description" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(OrderITModel.Shoe)">
+							<MappingFragment StoreEntitySet="Shoe">
+								<ScalarProperty Name="ProductId" ColumnName="ProductId" />
+								<ScalarProperty Name="Sport" ColumnName="Sport" />
+								<ScalarProperty Name="Gender" ColumnName="Gender" />
+								<ScalarProperty Name="Size" ColumnName="Size" />
+								<ScalarProperty Name="Color" ColumnName="Color" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<AssociationSetMapping Name="SupplierProduct" TypeName="OrderITModel.SupplierProduct" StoreEntitySet="ProductSupplier">
+						<EndProperty Name="Supplier">
+							<ScalarProperty Name="CompanyId" ColumnName="SupplierId" />
+						</EndProperty>
+						<EndProperty Name="Product">
+							<ScalarProperty Name="ProductId" ColumnName="ProductId" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<FunctionImportMapping FunctionImportName="GetOrderDetails" FunctionName="OrderITModel.Store.GetOrderDetails">
+						<ResultMapping>
+							<EntityTypeMapping TypeName="OrderITModel.OrderDetail">
+								<ScalarProperty Name="Quantity" ColumnName="q" />
+							</EntityTypeMapping>
+						</ResultMapping>
+					</FunctionImportMapping>
+					<FunctionImportMapping FunctionImportName="GetTopOrders" FunctionName="OrderITModel.Store.GetTopOrders" />
+					<FunctionImportMapping FunctionImportName="GetTotalOrdersAmount" FunctionName="OrderITModel.Store.GetTotalOrdersAmount" />
+					<FunctionImportMapping FunctionImportName="GetCompanies" FunctionName="OrderITModel.Store.GetCompanies">
+						<ResultMapping>
+							<EntityTypeMapping TypeName="OrderITModel.Customer">
+								<Condition ColumnName="Type" Value="C" />
+							</EntityTypeMapping>
+							<EntityTypeMapping TypeName="OrderITModel.Supplier">
+								<Condition ColumnName="Type" Value="S" />
+							</EntityTypeMapping>
+						</ResultMapping>
+					</FunctionImportMapping>
+					<FunctionImportMapping FunctionImportName="GetPagedOrderDetails" FunctionName="OrderITModel.Store.GetPagedOrderDetails" />
+					<EntitySetMapping Name="GeometrySamples">
+						<EntityTypeMapping TypeName="OrderITModel.GeometrySample">
+							<MappingFragment StoreEntitySet="GeometrySample">
+								<ScalarProperty Name="SpatialData" ColumnName="SpatialData" />
+								<ScalarProperty Name="Id" ColumnName="Id" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<FunctionImportMapping FunctionImportName="GetOrdersWithComplexProperties" FunctionName="OrderITModel.Store.GetOrdersWithComplexProperties">
+					</FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProducts" FunctionName="OrderITModel.Store.GetProducts" />
+				</EntityContainerMapping>
+			</Mapping>
+		</edmx:Mappings>
+	</edmx:Runtime>
+	<!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+	<Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+		<Connection>
+			<DesignerInfoPropertySet>
+				<DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+			</DesignerInfoPropertySet>
+		</Connection>
+		<Options>
+			<DesignerInfoPropertySet>
+				<DesignerProperty Name="ValidateOnBuild" Value="true" />
+				<DesignerProperty Name="EnablePluralization" Value="False" />
+				<DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+				<DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+				<DesignerProperty Name="DatabaseGenerationWorkflow" Value="$(VSEFTools)\DBGen\TablePerTypeStrategy.xaml" />
+			</DesignerInfoPropertySet>
+		</Options>
+		<!-- Diagram content (shape and connector positions) -->
+		<Diagrams>
+			<Diagram Name="Model" ZoomLevel="83" >
+				<EntityTypeShape EntityType="OrderITModel.Company" Width="1.5" PointX="4.75" PointY="6.25" Height="1.5956835937499996" />
+				<InheritanceConnector EntityType="OrderITModel.Customer">
+					<ConnectorPoint PointX="4.75" PointY="6.8026432291666659" />
+					<ConnectorPoint PointX="3" PointY="6.8026432291666659" />
+				</InheritanceConnector>
+				<InheritanceConnector EntityType="OrderITModel.Supplier">
+					<ConnectorPoint PointX="5.5" PointY="7.84568359375" />
+					<ConnectorPoint PointX="5.5" PointY="8.09568359375" />
+					<ConnectorPoint PointX="4.5" PointY="8.09568359375" />
+					<ConnectorPoint PointX="4.5" PointY="7.75" />
+					<ConnectorPoint PointX="2.25" PointY="7.75" />
+					<ConnectorPoint PointX="2.25" PointY="8.125" />
+				</InheritanceConnector>
+				<EntityTypeShape EntityType="OrderITModel.Supplier" Width="1.5" PointX="1.5" PointY="8.125" Height="1.5956835937499996" />
+				<AssociationConnector Association="OrderITModel.SupplierProduct">
+					<ConnectorPoint PointX="3" PointY="9.547841796875" />
+					<ConnectorPoint PointX="11.791666666666666" PointY="9.547841796875" />
+					<ConnectorPoint PointX="11.958333333333334" PointY="9.547841796875" />
+					<ConnectorPoint PointX="12.5937475" PointY="9.547841796875" />
+					<ConnectorPoint PointX="12.5937475" PointY="8.9994921875" />
+				</AssociationConnector>
+				<InheritanceConnector EntityType="OrderITModel.Shirt">
+					<ConnectorPoint PointX="13" PointY="8.9994921875" />
+					<ConnectorPoint PointX="13" PointY="9.375" />
+					<ConnectorPoint PointX="12.677080833333333" PointY="9.375" />
+					<ConnectorPoint PointX="12.510414166666665" PointY="9.375" />
+					<ConnectorPoint PointX="11.875" PointY="9.375" />
+					<ConnectorPoint PointX="11.875" PointY="9.75" />
+				</InheritanceConnector>
+				<AssociationConnector Association="OrderITModel.CustomerOrder">
+					<ConnectorPoint PointX="3" PointY="5.8124994999999995" />
+					<ConnectorPoint PointX="8.5" PointY="5.8124994999999995" />
+					<ConnectorPoint PointX="8.5" PointY="6.25" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="OrderITModel.Customer" Width="1.5" PointX="1.5" PointY="5.375" Height="1.9802864583333317" />
+				<InheritanceConnector EntityType="OrderITModel.Shoe">
+					<ConnectorPoint PointX="13.406252" PointY="8.9994921875" />
+					<ConnectorPoint PointX="13.406252" PointY="9.375" />
+					<ConnectorPoint PointX="14.125" PointY="9.375" />
+					<ConnectorPoint PointX="14.125" PointY="9.75" />
+				</InheritanceConnector>
+				<AssociationConnector Association="OrderITModel.OrderOrderDetail">
+					<ConnectorPoint PointX="5.25" PointY="3.7567350260416665" />
+					<ConnectorPoint PointX="6" PointY="3.7567350260416665" />
+				</AssociationConnector>
+				<AssociationConnector Association="OrderITModel.OrderDetailProduct">
+					<ConnectorPoint PointX="7.5" PointY="3.7713927291666658" />
+					<ConnectorPoint PointX="8.28125" PointY="3.7713927291666658" />
+					<ConnectorPoint PointX="8.28125" PointY="4.5" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="OrderITModel.GeometrySample" Width="1.5" PointX="0.75" PointY="0.75" Height="1.59568359375" />
+			</Diagram>
+		</Diagrams>
+	</Designer>
+</edmx:Edmx>

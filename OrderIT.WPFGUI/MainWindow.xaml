@@ -1,0 +1,100 @@
+﻿<Window x:Class="OrderIT.WPFGUI.MainWindow"
+					xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+					Title="MainWindow" Height="555" Width="523" Loaded="Window_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:OrderIT.Model;assembly=OrderIT.Model">
+	<StackPanel>
+		<DataGrid AutoGenerateColumns="False" EnableRowVirtualization="True" Height="134" HorizontalAlignment="Left" ItemsSource="{Binding}" Margin="12,12,0,0" Name="orderDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" VerticalAlignment="Top" Width="Auto" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserDeleteRows="True" CanUserAddRows="True">
+			<DataGrid.Columns>
+				<DataGridTemplateColumn x:Name="orderDateColumn" Header="Order Date" Width="150">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<DatePicker SelectedDate="{Binding Path=OrderDate, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn x:Name="estimatedShippingDateColumn" Header="Estimated Shipping Date" Width="150">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<DatePicker SelectedDate="{Binding Path=EstimatedShippingDate, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn x:Name="actualShippingDateColumn" Header="Actual Shipping Date" Width="150">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<DatePicker SelectedDate="{Binding Path=ActualShippingDate, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}"></DatePicker>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Grid HorizontalAlignment="Left" Margin="15,15,0,0" Name="grid1" VerticalAlignment="Top" Height="119" Width="476" DataContext="{Binding ElementName=orderDataGrid, Path=SelectedItem}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="168" />
+				<ColumnDefinition Width="107" />
+				<ColumnDefinition Width="30" />
+				<ColumnDefinition Width="171*" />
+				<ColumnDefinition Width="0*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="15*" />
+			</Grid.RowDefinitions>
+			<Label Content="Customer Id:" Margin="0,0,25,0" />
+			<ComboBox Name="Customers" DisplayMemberPath="Name" SelectedValuePath="CompanyId" SelectedValue="{Binding Path=CustomerId}" ItemsSource="{Binding}" Grid.ColumnSpan="2" Margin="143,0,30,0" />
+			<Label Grid.Row="1" Content="Order Date:" Margin="0,0,25,0" />
+			<DatePicker Grid.Row="1" Name="orderDateDatePicker" SelectedDate="{Binding Path=OrderDate, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Grid.ColumnSpan="2" Margin="143,0,30,0" />
+			<Label Grid.Row="2" Content="Estimated Shipping Date:" Margin="0,0,25,0" />
+			<DatePicker Grid.Row="2" Name="estimatedShippingDateDatePicker" SelectedDate="{Binding Path=EstimatedShippingDate, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Grid.ColumnSpan="2" Margin="143,0,30,0" />
+			<Label Grid.Row="3" Content="Actual Shipping Date:" Margin="0,0,25,0" />
+			<DatePicker Grid.Row="3" Name="actualShippingDateDatePicker" SelectedDate="{Binding Path=ActualShippingDate, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Grid.ColumnSpan="2" Margin="143,0,30,0" />
+
+
+			<Label Grid.Column="1" Content="Address:" Grid.ColumnSpan="2" Margin="77,0,0,0" />
+			<TextBox Grid.Column="3" Name="addressTextBox" Text="{Binding Path=ShippingAddress.Address, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Width="165" />
+			<Label Grid.Column="1" Grid.Row="1" Content="City:" Grid.ColumnSpan="2" Margin="77,0,0,0" />
+			<TextBox Grid.Column="3" Grid.Row="1" Name="cityTextBox" Text="{Binding Path=ShippingAddress.City, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,0,6,0" />
+			<Label Grid.Column="1" Grid.Row="2" Content="Country:" Grid.ColumnSpan="2" Margin="77,0,0,0" />
+			<TextBox Grid.Column="3" Grid.Row="2" Name="countryTextBox" Text="{Binding Path=ShippingAddress.Country, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,0,6,0" />
+			<Label Grid.Column="1" Grid.Row="3" Content="Zip Code:" Grid.ColumnSpan="2" Margin="77,0,0,0" />
+			<TextBox Grid.Column="3" Grid.Row="3" Name="zipCodeTextBox" Text="{Binding Path=ShippingAddress.ZipCode, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,0,6,0" />
+		</Grid>
+
+		<DataGrid Grid.Row="0" Grid.Column="0" AutoGenerateColumns="False" EnableRowVirtualization="True" Height="134" DataContext="{Binding ElementName=orderDataGrid, Path=SelectedItem.OrderDetails}" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="12,12,0,0" Name="detailsDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Width="479">
+			<DataGrid.Columns>
+				<DataGridTextColumn x:Name="quantityColumn" Binding="{Binding Path=Quantity, Mode=TwoWay}" Header="Quantity" Width="SizeToHeader" />
+				<DataGridTextColumn x:Name="unitPriceColumn" Binding="{Binding Path=UnitPrice, Mode=TwoWay}" Header="Unit price" Width="SizeToHeader" />
+				<DataGridTextColumn x:Name="discountColumn" Binding="{Binding Path=Discount, Mode=TwoWay}" Header="Discount" Width="SizeToHeader" />
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Grid Margin="15,15,0,0" Height="Auto" Width="474" HorizontalAlignment="Left" DataContext="{Binding ElementName=detailsDataGrid, Path=SelectedItem}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition></RowDefinition>
+				<RowDefinition></RowDefinition>
+				<RowDefinition></RowDefinition>
+			</Grid.RowDefinitions>
+			<Label Content="Product Id:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+			<ComboBox Height="23" Name="Products" Grid.Column="1" Grid.Row="0" DisplayMemberPath="Name" SelectedValuePath="ProductId" SelectedValue="{Binding Path=ProductId, Mode=TwoWay}" Margin="0,4,4,4" />
+			<Label Grid.Column="0" Grid.Row="1" Content="Quantity:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Margin="-3,3,0,3" Width="61" />
+			<TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Name="quantityTextBox" Text="{Binding Path=Quantity}" VerticalAlignment="Center" Width="104" Margin="0,4" />
+			<Label Grid.Column="2" Grid.Row="0" Content="Unit price:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Margin="-3,3,0,3" Width="61" />
+			<TextBox Grid.Column="3" Grid.Row="0" Height="23" HorizontalAlignment="Left" Name="unitPriceTextBox" Text="{Binding Path=UnitPrice}" VerticalAlignment="Center" Width="104" Margin="0,4" />
+			<Label Grid.Column="2" Grid.Row="1" Content="Discount:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Margin="-3,3,0,3" Width="61" />
+			<TextBox Grid.Column="3" Grid.Row="1" Height="23" HorizontalAlignment="Left" Name="discountTextBox" Text="{Binding Path=Discount}" VerticalAlignment="Center" Width="104" Margin="0,4" />
+			<Button Grid.Column="0" Grid.Row="2" Content="Add" Click="Button_Click" Height="26" Width="84" HorizontalAlignment="Left" Margin="15,15,0,0" />
+			<Button Grid.Column="1" Grid.Row="3" Content="Save" Click="Button_Click" Height="26" Width="84" HorizontalAlignment="Left" Margin="15,15,0,0" />
+		</Grid>
+	</StackPanel>
+</Window>
